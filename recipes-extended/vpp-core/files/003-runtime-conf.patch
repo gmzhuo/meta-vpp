@@ -1,0 +1,170 @@
+From 55d0efa3334039c33885f7ea97f83e9bfd9e295c Mon Sep 17 00:00:00 2001
+From: OpenEmbedded <oe.patch@oe>
+Date: Thu, 23 Apr 2020 15:05:13 +0000
+
+---
+ src/vpp/conf/startup.conf | 79 +++++++++++----------------------------
+ src/vpp/conf/vcl.conf     |  9 +++++
+ 2 files changed, 31 insertions(+), 57 deletions(-)
+ create mode 100644 src/vpp/conf/vcl.conf
+
+diff --git a/src/vpp/conf/startup.conf b/src/vpp/conf/startup.conf
+index b0d0c8664..d355f6b6c 100644
+--- a/src/vpp/conf/startup.conf
++++ b/src/vpp/conf/startup.conf
+@@ -1,75 +1,38 @@
+ 
+ unix {
+-  nodaemon
++  #nodaemon
+   log /var/log/vpp/vpp.log
+   full-coredump
+   cli-listen /run/vpp/cli.sock
++  cli-listen 0.0.0.0:5002  
++  startup-config /usr/share/vpp/scripts/interface-up.txt
+   gid vpp
+ }
+ 
+ api-trace {
+-## This stanza controls binary API tracing. Unless there is a very strong reason,
+-## please leave this feature enabled.
+   on
+-## Additional parameters:
+-##
+-## To set the number of binary API trace records in the circular buffer, configure nitems
+-##
+-## nitems <nnn>
+-##
+-## To save the api message table decode tables, configure a filename. Results in /tmp/<filename>
+-## Very handy for understanding api message changes between versions, identifying missing
+-## plugins, and so forth.
+-##
+-## save-api-table <filename>
+ }
+ 
+ api-segment {
+   gid vpp
+ }
+ 
++session {
++  evt_qs_memfd_seg
++}
++
+ socksvr {
+-  default
++  socket-name /run/vpp-api.sock
+ }
+ 
+ cpu {
+-	## In the VPP there is one main thread and optionally the user can create worker(s)
+-	## The main thread and worker thread(s) can be pinned to CPU core(s) manually or automatically
+-
+-	## Manual pinning of thread(s) to CPU core(s)
+-
+-	## Set logical CPU core where main thread runs, if main core is not set
+-	## VPP will use core 1 if available
+-	# main-core 1
+-
+-	## Set logical CPU core(s) where worker threads are running
+-	# corelist-workers 2-3,18-19
+-
+-	## Automatic pinning of thread(s) to CPU core(s)
+-
+-	## Sets number of CPU core(s) to be skipped (1 ... N-1)
+-	## Skipped CPU core(s) are not used for pinning main thread and working thread(s).
+-	## The main thread is automatically pinned to the first available CPU core and worker(s)
+-	## are pinned to next free CPU core(s) after core assigned to main thread
+-	# skip-cores 4
+-
+-	## Specify a number of workers to be created
+-	## Workers are pinned to N consecutive CPU cores while skipping "skip-cores" CPU core(s)
+-	## and main thread's CPU core
+-	# workers 2
+-
+-	## Set scheduling policy and priority of main and worker threads
++	main-core 7
+ 
+-	## Scheduling policy options are: other (SCHED_OTHER), batch (SCHED_BATCH)
+-	## idle (SCHED_IDLE), fifo (SCHED_FIFO), rr (SCHED_RR)
+-	# scheduler-policy fifo
++	workers 2
+ 
+-	## Scheduling priority is used only for "real-time policies (fifo and rr),
+-	## and has to be in the range of priorities supported for a particular policy
+-	# scheduler-priority 50
+ }
+ 
+-# buffers {
++buffers {
+ 	## Increase number of buffers allocated, needed only in scenarios with
+ 	## large number of interfaces and worker threads. Value is per numa node.
+ 	## Default is 16384 (8192 if running unpriviledged)
+@@ -77,10 +40,10 @@ cpu {
+ 
+ 	## Size of buffer data area
+ 	## Default is 2048
+-	# default data-size 2048
+-# }
++	default data-size 2048
++}
+ 
+-# dpdk {
++dpdk {
+ 	## Change default settings for all interfaces
+ 	# dev default {
+ 		## Number of receive queues, enables RSS
+@@ -120,9 +83,9 @@ cpu {
+ 	# blacklist 8086:10fb
+ 
+ 	## Set interface name
+-	# dev 0000:02:00.1 {
+-	#	name eth0
+-	# }
++	dev 0000:00:08.0 {
++	#    name eth0
++	}
+ 
+ 	## Whitelist specific interface by specifying PCI address and in
+ 	## addition specify custom parameters for this interface
+@@ -149,13 +112,15 @@ cpu {
+ 	## Enable UDP / TCP TX checksum offload
+ 	## This is the reversed option of 'no-tx-checksum-offload'
+ 	# enable-tcp-udp-checksum
+-# }
++}
+ 
+ 
+-# plugins {
++plugins {
+ 	## Adjusting the plugin path depending on where the VPP plugins are
+ 	#	path /ws/vpp/build-root/install-vpp-native/vpp/lib/vpp_plugins
+ 
++        path /usr/lib64/vpp_plugins
++
+ 	## Disable all plugins by default and then selectively enable specific plugins
+ 	# plugin default { disable }
+ 	# plugin dpdk_plugin.so { enable }
+@@ -164,7 +129,7 @@ cpu {
+ 	## Enable all plugins by default and then selectively disable specific plugins
+ 	# plugin dpdk_plugin.so { disable }
+ 	# plugin acl_plugin.so { disable }
+-# }
++}
+ 
+ ## Statistics Segment
+ # statseg {
+diff --git a/src/vpp/conf/vcl.conf b/src/vpp/conf/vcl.conf
+new file mode 100644
+index 000000000..13597b29e
+--- /dev/null
++++ b/src/vpp/conf/vcl.conf
+@@ -0,0 +1,9 @@
++vcl {
++  rx-fifo-size 4000000
++  tx-fifo-size 4000000
++  app-scope-local
++  app-scope-global
++  api-socket-name /run/vpp-api.sock
++  use-mq-eventfd
++}
++

@@ -8,191 +8,99 @@ PACKAGES += "vpp-core-data vpp-core-plugin-igmp vpp-core-plugin-gtpu vpp-core-pl
 		vpp-core-plugin-ioam_vxlan_gpe_test vpp-core-plugin-map_test vpp-core-plugin-avf_test \
 		vpp-core-plugin-mactime_test vpp-core-plugin-udp_ping_test vpp-core-plugin-ioam_trace_test \
 		vpp-core-plugin-lacp_test vpp-core-plugin-stn_test vpp-core-plugin-memif_test \
-		vpp-core-plugin-nat_test vpp-core-plugin-acl_test vpp-core-plugin-ioam_export_test \
+		vpp-core-plugin-nat_test_test vpp-core-plugin-ioam_export_test \
 		vpp-core-plugin-flowprobe_test vpp-core-plugin-ioam_pot_test \
 		vpp-core-plugin-vxlan_gpe_ioam_export_test  vpp-core-plugin-pppoe_test vpp-core-plugin-gtpu_test \
 		vpp-core-plugin-cdp_test vpp-core-plugin-dpdk vpp-core-plugin-dpdk_test vpp-core-test \
 		vpp-core-plugin-tlsopenssl vpp-core-plugin-ixge vpp-core-plugin-ila vpp-core-plugin-data \
 		"
 
-FILES_${PN}-test = " ${bindir}/vpp_json_test "
-FILES_${PN}-plugin-igmp = " ${libdir}/vpp_plugins/igmp_plugin.so "
-FILES_${PN}-plugin-gtpu = "  ${libdir}/vpp_plugins/gtpu_plugin.so "
-FILES_${PN}-plugin-gbp = " ${libdir}/vpp_plugins/gbp_plugin.so "
-FILES_${PN}-plugin-lb = " ${libdir}/vpp_plugins/lb_plugin.so "
-FILES_${PN}-plugin-avf = "  ${libdir}/vpp_plugins/avf_plugin.so "
-FILES_${PN}-plugin-cdp = "  ${libdir}/vpp_plugins/cdp_plugin.so "
-FILES_${PN}-plugin-map = "  ${libdir}/vpp_plugins/map_plugin.so "
-FILES_${PN}-plugin-srv6as = "  ${libdir}/vpp_plugins/srv6as_plugin.so "
-FILES_${PN}-plugin-tlsopenssl = "  ${libdir}/vpp_plugins/tlsopenssl_plugin.so "
-FILES_${PN}-plugin-ixge = "  ${libdir}/vpp_plugins/ixge_plugin.so "
-FILES_${PN}-plugin-l2e = "  ${libdir}/vpp_plugins/l2e_plugin.so "
-FILES_${PN}-plugin-acl = "  ${libdir}/vpp_plugins/acl_plugin.so "
-FILES_${PN}-plugin-flowprobe = "  ${libdir}/vpp_plugins/flowprobe_plugin.so "
-FILES_${PN}-plugin-abf = "  ${libdir}/vpp_plugins/abf_plugin.so "
-FILES_${PN}-plugin-pppoe = "  ${libdir}/vpp_plugins/pppoe_plugin.so "
-FILES_${PN}-plugin-lacp = "  ${libdir}/vpp_plugins/lacp_plugin.so "
-FILES_${PN}-plugin-ioam = "  ${libdir}/vpp_plugins/ioam_plugin.so "
-FILES_${PN}-plugin-memif = "  ${libdir}/vpp_plugins/memif_plugin.so "
-FILES_${PN}-plugin-stn = "  ${libdir}/vpp_plugins/stn_plugin.so "
-FILES_${PN}-plugin-srv6ad = "  ${libdir}/vpp_plugins/srv6ad_plugin.so "
-FILES_${PN}-plugin-mactime = "  ${libdir}/vpp_plugins/mactime_plugin.so "
-FILES_${PN}-plugin-unittest = "  ${libdir}/vpp_plugins/unittest_plugin.so "
-FILES_${PN}-plugin-nat = "  ${libdir}/vpp_plugins/nat_plugin.so "
-FILES_${PN}-plugin-srv6am = "  ${libdir}/vpp_plugins/srv6am_plugin.so "
-FILES_${PN}-plugin-dpdk = "  ${libdir}/vpp_plugins/dpdk_plugin.so "
-FILES_${PN}-plugin-ila = "  ${libdir}/vpp_plugins/ila_plugin.so "
 
-FILES_${PN}-plugin-lb_test = "  ${libdir}/vpp_api_test_plugins/lb_test_plugin.so "
-FILES_${PN}-plugin-ioam_vxlan_gpe_test = "  ${libdir}/vpp_api_test_plugins/ioam_vxlan_gpe_test_plugin.so "
-FILES_${PN}-plugin-map_test = "  ${libdir}/vpp_api_test_plugins/map_test_plugin.so "
-FILES_${PN}-plugin-avf_test = "  ${libdir}/vpp_api_test_plugins/avf_test_plugin.so "
-FILES_${PN}-plugin-mactime_test = "  ${libdir}/vpp_api_test_plugins/mactime_test_plugin.so "
-FILES_${PN}-plugin-udp_ping_test = "  ${libdir}/vpp_api_test_plugins/udp_ping_test_plugin.so "
-FILES_${PN}-plugin-ioam_trace_test = "  ${libdir}/vpp_api_test_plugins/ioam_trace_test_plugin.so "
-FILES_${PN}-plugin-lacp_test = "  ${libdir}/vpp_api_test_plugins/lacp_test_plugin.so "
-FILES_${PN}-plugin-stn_test = "  ${libdir}/vpp_api_test_plugins/stn_test_plugin.so "
-FILES_${PN}-plugin-memif_test = "  ${libdir}/vpp_api_test_plugins/memif_test_plugin.so "
-FILES_${PN}-plugin-nat_test = "  ${libdir}/vpp_api_test_plugins/nat_test_plugin.so "
-FILES_${PN}-plugin-acl_test = "  ${libdir}/vpp_api_test_plugins/acl_test_plugin.so "
-FILES_${PN}-plugin-ioam_export_test = "  ${libdir}/vpp_api_test_plugins/ioam_export_test_plugin.so "
-FILES_${PN}-plugin-flowprobe_test = "  ${libdir}/vpp_api_test_plugins/flowprobe_test_plugin.so "
-FILES_${PN}-plugin-ioam_pot_test = "  ${libdir}/vpp_api_test_plugins/ioam_pot_test_plugin.so "
-FILES_${PN}-plugin-vxlan_gpe_ioam_export_test = "  ${libdir}/vpp_api_test_plugins/vxlan_gpe_ioam_export_test_plugin.so "
-FILES_${PN}-plugin-pppoe_test = "  ${libdir}/vpp_api_test_plugins/pppoe_test_plugin.so "
-FILES_${PN}-plugin-gtpu_test = "  ${libdir}/vpp_api_test_plugins/gtpu_test_plugin.so "
-FILES_${PN}-plugin-cdp_test = "  ${libdir}/vpp_api_test_plugins/cdp_test_plugin.so "
-FILES_${PN}-plugin-dpdk_test = "  ${libdir}/vpp_api_test_plugins/dpdk_test_plugin.so "
-
-FILES_${PN}-data = " \
-		${datadir}/vpp/api/core/sctp.api.json \
-		${datadir}/vpp/api/core/sr.api.json \
-		${datadir}/vpp/api/core/gre.api.json \
-		${datadir}/vpp/api/core/lisp.api.json \
-		${datadir}/vpp/api/core/netmap.api.json \
-		${datadir}/vpp/api/core/tcp.api.json \
-		${datadir}/vpp/api/core/ipsec_gre.api.json \
-		${datadir}/vpp/api/core/bfd.api.json \
-		${datadir}/vpp/api/core/tap.api.json \
-		${datadir}/vpp/api/core/oam.api.json \
-		${datadir}/vpp/api/core/vpe.api.json \
-		${datadir}/vpp/api/core/bier.api.json \
-		${datadir}/vpp/api/core/ipsec.api.json \
-		${datadir}/vpp/api/core/af_packet.api.json \
-		${datadir}/vpp/api/core/vxlan_gpe.api.json \
-		${datadir}/vpp/api/core/session.api.json \
-		${datadir}/vpp/api/core/one.api.json \
-		${datadir}/vpp/api/core/sr_mpls.api.json \
-		${datadir}/vpp/api/core/feature.api.json \
-		${datadir}/vpp/api/core/p2p_ethernet.api.json \
-		${datadir}/vpp/api/core/memclnt.api.json \
-		${datadir}/vpp/api/core/pg.api.json \
-		${datadir}/vpp/api/core/l2.api.json \
-		${datadir}/vpp/api/core/punt.api.json \
-		${datadir}/vpp/api/core/classify.api.json \
-		${datadir}/vpp/api/core/policer.api.json \
-		${datadir}/vpp/api/core/span.api.json \
-		${datadir}/vpp/api/core/udp.api.json \
-		${datadir}/vpp/api/core/vxlan.api.json \
-		${datadir}/vpp/api/core/mpls.api.json \
-		${datadir}/vpp/api/core/qos.api.json \
-		${datadir}/vpp/api/core/ip.api.json \
-		${datadir}/vpp/api/core/ipip.api.json \
-		${datadir}/vpp/api/core/bond.api.json \
-		${datadir}/vpp/api/core/dns.api.json \
-		${datadir}/vpp/api/core/tapv2.api.json \
-		${datadir}/vpp/api/core/pipe.api.json \
-		${datadir}/vpp/api/core/dhcp6_pd_client_cp.api.json \
-		${datadir}/vpp/api/core/l2tp.api.json \
-		${datadir}/vpp/api/core/lisp_gpe.api.json \
-		${datadir}/vpp/api/core/cop.api.json \
-		${datadir}/vpp/api/core/geneve.api.json \
-		${datadir}/vpp/api/core/stats.api.json \
-		${datadir}/vpp/api/core/rd_cp.api.json \
-		${datadir}/vpp/api/core/dhcp.api.json \
-		${datadir}/vpp/api/core/lldp.api.json \
-		${datadir}/vpp/api/core/dhcp6_ia_na_client_cp.api.json \
-		${datadir}/vpp/api/core/ipfix_export.api.json \
-		${datadir}/vpp/api/core/vhost_user.api.json \
-		${datadir}/vpp/api/core/interface.api.json \
-		${datadir}/vpp/C.py \
-		${datadir}/vpp/JSON.py "
-
+FILES_${PN}-plugin-acl = " ${libdir}/vpp_plugins/acl_plugin.so "
 
 FILES_${PN} = " \
-		${sysconfdir}/vpp \
-		${sysconfdir}/vpp/startup.conf \
-		${sysconfdir}/vpp/startup.conf.dflt \
-		${sysconfdir}/rc.local \
-		${bindir}/svmdbtool \
-		${bindir}/svmtool \
-		${bindir}/vppapigen \
-		${bindir}/elftool \
-		${bindir}/cpelatency \
-		${bindir}/cpelinreg \
-		${bindir}/elog_merge \
-		${bindir}/c2cpel  \
-		${bindir}/cpelstate  \
-		${bindir}/cpeldump \
-		${bindir}/vpp \
-		${bindir}/vpp_api_test \
-		${bindir}/vpp_get_metrics \
-		${bindir}/vpp_restart \
-		${bindir}/vppctl \
-		${libdir}/libcperf.so.0.0.0 \
-		${libdir}/libcperf.so.0 \
-		${libdir}/libsvm.so.0 \
-		${libdir}/libsvm.so.0.0.0 \
-		${libdir}/libsvmdb.so.0 \
-		${libdir}/libsvmdb.so.0.0.0 \
-		${libdir}/libvapiclient.so.0 \
-		${libdir}/libvapiclient.so.0.0.0 \
-		${libdir}/libvatplugin.so.0 \
-		${libdir}/libvatplugin.so.0.0.0 \
-		${libdir}/libvcl_ldpreload.so.0 \
-		${libdir}/libvcl_ldpreload.so.0.0.0 \
-		${libdir}/libvlib.so.0 \
-		${libdir}/libvlib.so.0.0.0 \
-		${libdir}/libvlibmemory.so.0 \
-		${libdir}/libvlibmemory.so.0.0.0 \
-		${libdir}/libvlibmemoryclient.so.0 \
-		${libdir}/libvlibmemoryclient.so.0.0.0 \
-		${libdir}/libvnet.so.0 \
-		${libdir}/libvnet.so.0.0.0 \
-		${libdir}/libvppapiclient.so.0 \
-		${libdir}/libvppapiclient.so.0.0.0 \
-		${libdir}/libvppcom.so.0 \
-		${libdir}/libvppcom.so.0.0.0 \
-		${libdir}/libvppinfra.so.0 \
-		${libdir}/libvppinfra.so.0.0.0 \
-		"
-
-FILES_${PN}-plugin-data = " \
-		${datadir}/vpp/api/plugins/pot.api.json \
-		${datadir}/vpp/api/plugins/pppoe.api.json \
-		${datadir}/vpp/api/plugins/igmp.api.json \
-		${datadir}/vpp/api/plugins/avf.api.json \
-		${datadir}/vpp/api/plugins/mactime.api.json \
-		${datadir}/vpp/api/plugins/gbp.api.json \
-		${datadir}/vpp/api/plugins/map.api.json \
-		${datadir}/vpp/api/plugins/udp_ping.api.json \
-		${datadir}/vpp/api/plugins/l2e.api.json \
-		${datadir}/vpp/api/plugins/ioam_export.api.json \
-		${datadir}/vpp/api/plugins/lb.api.json \
-		${datadir}/vpp/api/plugins/vxlan_gpe_ioam_export.api.json \
-		${datadir}/vpp/api/plugins/ioam_vxlan_gpe.api.json \
-		${datadir}/vpp/api/plugins/acl.api.json \
-		${datadir}/vpp/api/plugins/ioam_cache.api.json \
-		${datadir}/vpp/api/plugins/stn.api.json \
-		${datadir}/vpp/api/plugins/abf.api.json \
-		${datadir}/vpp/api/plugins/nat.api.json \
-		${datadir}/vpp/api/plugins/flowprobe.api.json \
-		${datadir}/vpp/api/plugins/memif.api.json \
-		${datadir}/vpp/api/plugins/lacp.api.json \
-		${datadir}/vpp/api/plugins/gtpu.api.json \
-		${datadir}/vpp/api/plugins/trace.api.json \
-		${datadir}/vpp/api/plugins/dpdk.api.json \
-		${datadir}/vpp/api/plugins/cdp.api.json "
+			/etc/vpp/startup.conf \
+			/etc/vpp/vcl.conf \
+			/usr/bin/vpp_get_metrics \
+			/usr/bin/vpp_get_stats \
+			/usr/bin/vpp_restart \
+			/usr/bin/vpp_api_test \
+			/usr/bin/svmtool \
+			/usr/bin/vapi_c_gen.py \
+			/usr/bin/vapi_json_parser.py \
+			/usr/bin/vppapigen \
+			/usr/bin/vpp_prometheus_export \
+			/usr/bin/elftool \
+			/usr/bin/vapi_cpp_gen.py \
+			/usr/bin/svmdbtool \
+			/usr/bin/vpp \
+			/usr/bin/vppctl \
+			/usr/bin/vpp_echo \
+			/usr/lib64/vpp_plugins/builtinurl_plugin.so \
+			/usr/lib64/vpp_plugins/ping_plugin.so \
+			/usr/lib64/vpp_plugins/stn_plugin.so \
+			/usr/lib64/vpp_plugins/ixge_plugin.so \
+			/usr/lib64/vpp_plugins/ioam_plugin.so \
+			/usr/lib64/vpp_plugins/oddbuf_plugin.so \
+			/usr/lib64/vpp_plugins/crypto_ia32_plugin.so \
+			/usr/lib64/vpp_plugins/mactime_plugin.so \
+			/usr/lib64/vpp_plugins/l2e_plugin.so \
+			/usr/lib64/vpp_plugins/unittest_plugin.so \
+			/usr/lib64/vpp_plugins/mdata_plugin.so \
+			/usr/lib64/vpp_plugins/crypto_openssl_plugin.so \
+			/usr/lib64/vpp_plugins/tlsopenssl_plugin.so \
+			/usr/lib64/vpp_plugins/lb_plugin.so \
+			/usr/lib64/vpp_plugins/http_static_plugin.so \
+			/usr/lib64/vpp_plugins/l3xc_plugin.so \
+			/usr/lib64/vpp_plugins/abf_plugin.so \
+			/usr/lib64/vpp_plugins/gbp_plugin.so \
+			/usr/lib64/vpp_plugins/perfmon_plugin.so \
+			/usr/lib64/vpp_plugins/svs_plugin.so \
+			/usr/lib64/vpp_plugins/srv6am_plugin.so \
+			/usr/lib64/vpp_plugins/vmxnet3_plugin.so \
+			/usr/lib64/vpp_plugins/sctp_plugin.so \
+			/usr/lib64/vpp_plugins/srv6mobile_plugin.so \
+			/usr/lib64/vpp_plugins/ikev2_plugin.so \
+			/usr/lib64/vpp_plugins/ct6_plugin.so \
+			/usr/lib64/vpp_plugins/flowprobe_plugin.so \
+			/usr/lib64/vpp_plugins/avf_plugin.so \
+			/usr/lib64/vpp_plugins/pppoe_plugin.so \
+			/usr/lib64/vpp_plugins/dns_plugin.so \
+			/usr/lib64/vpp_plugins/dpdk_plugin.so \
+			/usr/lib64/vpp_plugins/memif_plugin.so \
+			/usr/lib64/vpp_plugins/cdp_plugin.so \
+			/usr/lib64/vpp_plugins/srv6ad_plugin.so \
+			/usr/lib64/vpp_plugins/nsh_plugin.so \
+			/usr/lib64/vpp_plugins/dhcp_plugin.so \
+			/usr/lib64/vpp_plugins/srv6as_plugin.so \
+			/usr/lib64/vpp_plugins/nsim_plugin.so \
+			/usr/lib64/vpp_plugins/gtpu_plugin.so \
+			/usr/lib64/vpp_plugins/acl_plugin.so \
+			/usr/lib64/vpp_plugins/nat_plugin.so \
+			/usr/lib64/vpp_plugins/ila_plugin.so \
+			/usr/lib64/vpp_plugins/igmp_plugin.so \
+			/usr/lib64/vpp_plugins/hs_apps_plugin.so \
+			/usr/lib64/vpp_plugins/map_plugin.so \
+			/usr/lib64/vpp_plugins/lacp_plugin.so \
+			${libdir}/libvatplugin.so.20.05 \
+			${libdir}/libsvmdb.so.20.05 \
+			${libdir}/libsvm.so.20.05 \
+			${libdir}/libvppapiclient.so.20.05 \
+			${libdir}/libvlibmemoryclient.so.20.05 \
+			${libdir}/libvnet.so.20.05 \
+			${libdir}/libnat.so.20.05 \
+			${libdir}/libvatclient.so.20.05 \
+			${libdir}/libvlib.so.20.05 \
+			${libdir}/libvppcom.so.20.05 \
+			${libdir}/libvlibmemory.so.20.05 \
+			${libdir}/libvppinfra.so.20.05 \
+			${libdir}/libvapiclient.so.20.05 \
+			${libdir}/libvcl_ldpreload.so.20.05 \
+			${libdir}/vpp_plugins/vrrp_plugin.so \
+			${libdir}/vpp_plugins/dslite_plugin.so \
+			${libdir}/vpp_plugins/crypto_native_plugin.so \
+			${libdir}/vpp_plugins/urpf_plugin.so \
+			"
 
 FILES_${PN}-dev = " \
 		${includedir}/* \

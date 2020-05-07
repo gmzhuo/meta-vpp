@@ -1,0 +1,33 @@
+diff --git a/src/cmake/library.cmake b/src/cmake/library.cmake
+index dc14ae59e..6b19bf1a0 100644
+--- a/src/cmake/library.cmake
++++ b/src/cmake/library.cmake
+@@ -34,7 +34,7 @@ macro(add_vpp_library lib)
+   endif()
+   install(
+     TARGETS ${lib}
+-    DESTINATION lib
++    DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     COMPONENT ${ARG_COMPONENT}
+   )
+ 
+diff --git a/src/cmake/plugin.cmake b/src/cmake/plugin.cmake
+index 2e2749a44..650f56444 100644
+--- a/src/cmake/plugin.cmake
++++ b/src/cmake/plugin.cmake
+@@ -86,13 +86,13 @@ macro(add_vpp_plugin name)
+       LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/vpp_api_test_plugins)
+     install(
+       TARGETS ${test_plugin_name}
+-      DESTINATION lib/vpp_api_test_plugins
++      DESTINATION ${CMAKE_INSTALL_LIBDIR}/vpp_api_test_plugins
+       COMPONENT ${PLUGIN_COMPONENT}
+     )
+   endif()
+   install(
+     TARGETS ${plugin_name}
+-    DESTINATION lib/vpp_plugins
++    DESTINATION ${CMAKE_INSTALL_LIBDIR}/vpp_plugins
+     COMPONENT ${PLUGIN_COMPONENT}
+   )
+ endmacro()

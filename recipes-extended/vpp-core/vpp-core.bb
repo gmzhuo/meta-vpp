@@ -1,10 +1,10 @@
 DESCRIPTION = "Vector Packet Processing"
 
-STABLE = "stable/1807"
+STABLE = "master"
 BRANCH = "master"
-SRCREV = "9f624cacf379c5349e66c12b91f0b4765f7ec22c"
+SRCREV = "0e2751cc1d246145cee6b1e4a588c30270c7ce21"
 S = "${WORKDIR}/git"
-PV = "18.07"
+PV = "20.05"
 
 LICENSE = "Apache-2.0"
 
@@ -14,25 +14,22 @@ AUTOTOOLS_SCRIPT_PATH = "${S}/src"
 
 
 SRC_URI = "git://github.com/FDio/vpp;branch=${STABLE} \
-	file://0001-Link-vpp-api-with-shared-libs-if-static-is-disabled.patch \
+	file://fix-libdir.patch \
+	file://002-private-event.patch \
 	file://0001-GCC-above-5.4-fails-when-we-specify-arch-funattribut.patch \
+	file://003-runtime-conf.patch \
 	"
-DEPENDS = "dpdk openssl numactl"
+DEPENDS = "dpdk numactl openssl util-linux"
 
-inherit autotools
+OECMAKE_SOURCEPATH = "${S}/src"
+
+inherit cmake
 inherit pkgconfig
-inherit python-dir
 
+export OPENSSL_PATH = "${RECIPE_SYSROOT}"
+export DPDK_PATH= "${RECIPE_SYSROOT}"
 
-EXTRA_OECONF = " \
-	--disable-dependency-tracking \
-	--with-log2-cache-line-bytes=6  \
-	--srcdir=${S}/src \
-	--enable-perftool \
-	--disable-papi \
-	--disable-japi \
-	--disable-static \
-	"
+EXTRA_OECMAKE = "-DDPDK_INCLUDE_DIR=${RECIPE_SYSROOT}/usr/include -DDPDK_LIB=${RECIPE_SYSROOT}/usr/lib64/libdpdk.a"
 
 include vpp-pkgs.inc
 
@@ -44,7 +41,20 @@ do_configure_append () {
 do_install_append() {
 	mkdir -p ${D}/etc/vpp
 	cp ${S}/src/vpp/conf/startup.conf ${D}/etc/vpp/startup.conf
+	cp ${S}/src/vpp/conf/vcl.conf ${D}/etc/vpp/vcl.conf
+	rm -rf ${D}/usr/share/vpp
+	rm -rf ${D}/usr/lib/cmake
+	rm -rf ${D}/${libdir}/vpp_api_test_plugins/
+	rm -rf ${D}/usr/lib/cmake/vpp
+	rm -rf ${D}/usr/share
+	rm -rf ${D}/usr/etc
+	rm -rf ${D}/usr/lib64/libvatclient.so
+	rm -rf ${D}/usr/lib64/libnat.so
+	rm -rf ${D}/usr/lib/
 }
+
+#do_package_qa() {
+#}
 
 pkg_postinst_ontarget_${PN} () {
 echo vm.nr_hugepages=1024 >> /etc/sysctl.conf
@@ -67,3 +77,5 @@ echo mkdir -p /var/log/vpp >> /etc/rc.local
 echo "/usr/bin/vpp -c /etc/vpp/startup.conf" >> /etc/rc.local
 chmod 755 /etc/rc.local
 }
+
+
