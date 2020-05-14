@@ -12,7 +12,6 @@ PACKAGES = "\
 RDEPENDS_${PN} = " \
 		dpdk \
 		numactl \
-		openssh \
 		openssl \
 		coreutils \
 		util-linux \
