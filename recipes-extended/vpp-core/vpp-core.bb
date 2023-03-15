@@ -1,56 +1,34 @@
 DESCRIPTION = "Vector Packet Processing"
 
-STABLE = "master"
-BRANCH = "master"
-SRCREV = "0e2751cc1d246145cee6b1e4a588c30270c7ce21"
-S = "${WORKDIR}/git"
-PV = "20.05"
+include vpp-common.inc
+SRCREV = "a361a3951c5cc825fcb4e94c41255e2074261769"
+PV = "23.06"
 
-LICENSE = "Apache-2.0"
+SRC_URI += " file://startup.conf file://vcl.conf "
 
-LIC_FILES_CHKSUM = "file://LICENSE;md5=175792518e4ac015ab6696d16c4f607e"
-
-AUTOTOOLS_SCRIPT_PATH = "${S}/src"
+#export DPDK_PATH= "${RECIPE_SYSROOT}"
+#EXTRA_OECMAKE = "-DDPDK_INCLUDE_DIR=${RECIPE_SYSROOT}/usr/include -DDPDK_LIB=${RECIPE_SYSROOT}/usr/lib64/libdpdk.a"
+#include vpp-pkgs.inc
 
 
-SRC_URI = "git://github.com/FDio/vpp;branch=${STABLE} \
-	file://fix-libdir.patch \
-	file://002-private-event.patch \
-	file://0001-GCC-above-5.4-fails-when-we-specify-arch-funattribut.patch \
-	file://003-runtime-conf.patch \
-	"
-DEPENDS = "dpdk numactl openssl util-linux"
-
-OECMAKE_SOURCEPATH = "${S}/src"
-
-inherit cmake
-inherit pkgconfig
-
-export OPENSSL_PATH = "${RECIPE_SYSROOT}"
-export DPDK_PATH= "${RECIPE_SYSROOT}"
-
-EXTRA_OECMAKE = "-DDPDK_INCLUDE_DIR=${RECIPE_SYSROOT}/usr/include -DDPDK_LIB=${RECIPE_SYSROOT}/usr/lib64/libdpdk.a"
-
-include vpp-pkgs.inc
-
-
-do_configure_append () {
+do_configure:append () {
 	( cd ${B} &&  mkdir -p vppinfra vpp/app )
 }
 
-do_install_append() {
+do_install:append() {
 	mkdir -p ${D}/etc/vpp
-	cp ${S}/src/vpp/conf/startup.conf ${D}/etc/vpp/startup.conf
-	cp ${S}/src/vpp/conf/vcl.conf ${D}/etc/vpp/vcl.conf
+	cp ${WORKDIR}/startup.conf ${D}/etc/vpp/startup.conf
+	cp ${WORKDIR}/vcl.conf ${D}/etc/vpp/vcl.conf
 	rm -rf ${D}/usr/share/vpp
 	rm -rf ${D}/usr/lib/cmake
-	rm -rf ${D}/${libdir}/vpp_api_test_plugins/
 	rm -rf ${D}/usr/lib/cmake/vpp
 	rm -rf ${D}/usr/share
 	rm -rf ${D}/usr/etc
 	rm -rf ${D}/usr/lib64/libvatclient.so
 	rm -rf ${D}/usr/lib64/libnat.so
-	rm -rf ${D}/usr/lib/
+	rm -rf ${D}/usr/lib/python3.8/
+	rm -rf ${D}/usr/lib/vpp_api_test_plugins/
+	rm -rf ${D}/usr/lib/vat2_plugins/
 }
 
 #do_package_qa() {
@@ -77,5 +55,14 @@ echo mkdir -p /var/log/vpp >> /etc/rc.local
 echo "/usr/bin/vpp -c /etc/vpp/startup.conf" >> /etc/rc.local
 chmod 755 /etc/rc.local
 }
+
+PACKAGES += " vpp-core-plugin"
+
+FILES:vpp-core-plugin = " ${libdir}/vpp_plugins/*.so "
+RDEPENDS:vpp-core-plugin += "vpp-core"
+FILES:${PN}-dev = " \
+		${includedir}/* \
+		${libdir}/lib*.so \
+		"
 
 

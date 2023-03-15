@@ -1,33 +1,42 @@
-diff --git a/src/cmake/library.cmake b/src/cmake/library.cmake
-index dc14ae59e..6b19bf1a0 100644
---- a/src/cmake/library.cmake
-+++ b/src/cmake/library.cmake
-@@ -34,7 +34,7 @@ macro(add_vpp_library lib)
-   endif()
-   install(
-     TARGETS ${lib}
--    DESTINATION lib
-+    DESTINATION ${CMAKE_INSTALL_LIBDIR}
-     COMPONENT ${ARG_COMPONENT}
-   )
+diff --git a/extras/libmemif/CMakeLists.txt b/extras/libmemif/CMakeLists.txt
+index b6b658c2d..b0641f7ef 100644
+--- a/extras/libmemif/CMakeLists.txt
++++ b/extras/libmemif/CMakeLists.txt
+@@ -26,7 +26,7 @@ endif ()
  
-diff --git a/src/cmake/plugin.cmake b/src/cmake/plugin.cmake
-index 2e2749a44..650f56444 100644
---- a/src/cmake/plugin.cmake
-+++ b/src/cmake/plugin.cmake
-@@ -86,13 +86,13 @@ macro(add_vpp_plugin name)
-       LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/vpp_api_test_plugins)
-     install(
-       TARGETS ${test_plugin_name}
--      DESTINATION lib/vpp_api_test_plugins
-+      DESTINATION ${CMAKE_INSTALL_LIBDIR}/vpp_api_test_plugins
-       COMPONENT ${PLUGIN_COMPONENT}
-     )
-   endif()
-   install(
-     TARGETS ${plugin_name}
--    DESTINATION lib/vpp_plugins
-+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/vpp_plugins
-     COMPONENT ${PLUGIN_COMPONENT}
-   )
- endmacro()
+ set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -DMEMIF_DBG -DICMP_DBG")
+ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+-set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
++# set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
+ set(CMAKE_INSTALL_MESSAGE NEVER)
+ 
+ find_package(Threads REQUIRED)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index fb4463e33..7ac387627 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -186,7 +186,7 @@ endif()
+ ##############################################################################
+ option(VPP_SET_RPATH "Set rpath for resulting binaries and libraries." ON)
+ if(VPP_SET_RPATH)
+-  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${VPP_LIBRARY_DIR}")
++  #set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${VPP_LIBRARY_DIR}")
+ endif()
+ set(CMAKE_INSTALL_MESSAGE NEVER)
+ 
+diff --git a/src/vnet/ip/ip.h b/src/vnet/ip/ip.h
+index 9ebefa0cf..105d5ac9e 100644
+--- a/src/vnet/ip/ip.h
++++ b/src/vnet/ip/ip.h
+@@ -292,7 +292,7 @@ ethernet_type_t ip_address_family_to_ether_type (ip_address_family_t af);
+ 
+ always_inline u32 vlib_buffer_get_ip4_fib_index (vlib_buffer_t * b);
+ always_inline u32 vlib_buffer_get_ip6_fib_index (vlib_buffer_t * b);
+-always_inline u32
++static u32
+ vlib_buffer_get_ip_fib_index (vlib_buffer_t * b, u8 is_ip4)
+ {
+   return (is_ip4 ? vlib_buffer_get_ip4_fib_index
+diff --git a/src/vnet/ip/ip_packet.h b/src/vnet/ip/ip_packet.h
+old mode 100755
+new mode 100644
